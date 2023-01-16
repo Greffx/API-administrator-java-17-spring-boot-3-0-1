@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    group:
+      studyPurposes:
+        - "testH2"
+        - "mysqldb"
+    active: mysqldb
+
+server:
+  port: 1111
