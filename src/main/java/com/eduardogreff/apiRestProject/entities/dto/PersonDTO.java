@@ -5,9 +5,9 @@ import com.eduardogreff.apiRestProject.entities.Person;
 public class PersonDTO {
 
     private Long id;
-    private String Firstname;
+    private String firstName;
     private String lastName;
-    private String address;
+    private String city;
     private String gender;
     private String email;
     private Integer age;
@@ -17,11 +17,11 @@ public class PersonDTO {
 
     public PersonDTO(Person person) {
         this.id = person.getId();
-        this.Firstname = person.getFirstname();
+        this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
-        this.address = person.getAddress();
+        this.city = person.getCity();
         this.gender = person.getGender();
-        this.email = person.getAddress();
+        this.email = person.getEmail();
         this.age = person.getAge();
     }
 
@@ -33,12 +33,12 @@ public class PersonDTO {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return Firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        Firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -49,12 +49,12 @@ public class PersonDTO {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCity() {
+        return city;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getGender() {
