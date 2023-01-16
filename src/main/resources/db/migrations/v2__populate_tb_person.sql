@@ -4,4 +4,4 @@ INSERT INTO `tb_person` VALUES
 (3,32,'Berlin','jonas1@gmail.com','Jonas','male','Grafeno'),
 (4,12,'France','pedro1@gmail.com','Pedro','male','Pedroso'),
 (5,53,'Porto','gabriel1@gmail.com','Gabriel','male','Ferraz'),
-(6IN,33,'Canoas','marcela1@gmail.com','Marcela','female','Junior');
+(6,33,'Canoas','marcela1@gmail.com','Marcela','female','Junior');
