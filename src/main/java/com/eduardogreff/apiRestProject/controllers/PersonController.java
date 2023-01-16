@@ -27,8 +27,20 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO) {
+    public ResponseEntity<Void> create(@RequestBody PersonDTO personDTO) {
         service.create(personDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(personDTO.getId()).toUri()).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> put(@RequestBody PersonDTO dto, @PathVariable Long id) {
+        service.put(dto, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
