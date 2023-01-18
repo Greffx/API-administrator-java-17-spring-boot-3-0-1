@@ -29,7 +29,8 @@ public class PersonController {
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody PersonDTO personDTO) {
         service.create(personDTO);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(personDTO.getId()).toUri()).build();
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(personDTO.getId()).toUri()).build();
     }
 
     @PutMapping("/{id}")

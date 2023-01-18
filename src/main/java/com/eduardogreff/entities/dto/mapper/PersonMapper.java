@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PersonMapper {
 
-    private static ModelMapper mapper = new org.modelmapper.ModelMapper();
+    private static final ModelMapper mapper = new org.modelmapper.ModelMapper();
 
     public static Person toPerson(PersonDTO dto) {
         return mapper.map(dto, Person.class);

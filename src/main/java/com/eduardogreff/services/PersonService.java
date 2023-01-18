@@ -21,7 +21,8 @@ public class PersonService {
     }
 
     public PersonDTO findById(Long id) {
-        return PersonMapper.personToPersonDTO(repository.findById(id).orElseThrow(() -> new PersonNotFound("This value is invalid, try another one.")));
+        return PersonMapper.personToPersonDTO(repository.findById(id)
+                .orElseThrow(() -> new PersonNotFound("This value is invalid, try another one.")));
     }
 
     public void create(PersonDTO personDTO) {
