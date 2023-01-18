@@ -1,4 +1,4 @@
-package com.eduardogreff.apiRestProject.services.exceptions;
+package com.eduardogreff.services.exceptions;
 
 public class PersonNotFound extends RuntimeException {
     public PersonNotFound(String message) {

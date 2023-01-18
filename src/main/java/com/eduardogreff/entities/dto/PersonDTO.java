@@ -1,6 +1,4 @@
-package com.eduardogreff.apiRestProject.entities.dto;
-
-import com.eduardogreff.apiRestProject.entities.Person;
+package com.eduardogreff.entities.dto;
 
 public class PersonDTO {
 
@@ -13,16 +11,6 @@ public class PersonDTO {
     private Integer age;
 
     public PersonDTO() {
-    }
-
-    public PersonDTO(Person person) {
-        this.id = person.getId();
-        this.firstName = person.getFirstName();
-        this.lastName = person.getLastName();
-        this.city = person.getCity();
-        this.gender = person.getGender();
-        this.email = person.getEmail();
-        this.age = person.getAge();
     }
 
     public Long getId() {

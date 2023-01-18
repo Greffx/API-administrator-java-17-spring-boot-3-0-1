@@ -1,4 +1,4 @@
-package com.eduardogreff.apiRestProject.controllers;
+package com.eduardogreff.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

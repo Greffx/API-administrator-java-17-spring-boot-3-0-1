@@ -1,6 +1,5 @@
-package com.eduardogreff.apiRestProject.entities;
+package com.eduardogreff.entities;
 
-import com.eduardogreff.apiRestProject.entities.dto.PersonDTO;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -30,16 +29,6 @@ public class Person {
         this.gender = gender;
         this.email = email;
         this.age = age;
-    }
-
-    public Person(PersonDTO dto) {
-        this.id = dto.getId();
-        firstName = dto.getFirstName();
-        this.lastName = dto.getLastName();
-        this.city = dto.getCity();
-        this.gender = dto.getGender();
-        this.email = dto.getEmail();
-        this.age = dto.getAge();
     }
 
     public Long getId() {

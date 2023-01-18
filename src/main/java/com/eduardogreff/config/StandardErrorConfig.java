@@ -1,4 +1,4 @@
-package com.eduardogreff.apiRestProject.config;
+package com.eduardogreff.config;
 
 import java.time.Instant;
 

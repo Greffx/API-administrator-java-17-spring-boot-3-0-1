@@ -1,7 +1,7 @@
-package com.eduardogreff.apiRestProject.controllers.exception;
+package com.eduardogreff.controllers.exception;
 
-import com.eduardogreff.apiRestProject.config.StandardErrorConfig;
-import com.eduardogreff.apiRestProject.services.exceptions.PersonNotFound;
+import com.eduardogreff.config.StandardErrorConfig;
+import com.eduardogreff.services.exceptions.PersonNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
