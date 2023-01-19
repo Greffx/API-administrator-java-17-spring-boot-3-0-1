@@ -1,7 +1,5 @@
 package com.eduardogreff.entities.dto.mapper;
 
-
-import com.eduardogreff.controllers.PersonController;
 import com.eduardogreff.entities.Person;
 import com.eduardogreff.entities.dto.PersonDTO;
 import org.modelmapper.ModelMapper;
@@ -14,10 +12,6 @@ public class PersonMapper {
 
     public static Person toPerson(PersonDTO dto) {
         return mapper.map(dto, Person.class);
-    }
-
-    public static Person dtoToPerson(PersonController request) {
-        return mapper.map(request, Person.class);
     }
 
     public static PersonDTO personToPersonDTO(Person person) {

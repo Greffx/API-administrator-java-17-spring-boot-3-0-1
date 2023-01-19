@@ -30,7 +30,7 @@ public class PersonService {
     }
 
     public void put(PersonDTO dto, Long id) {
-//        findById(id);
+        findById(id);
         Person monitoredPerson = repository.getReferenceById(id);
         updatePerson(monitoredPerson, dto);
         repository.save(monitoredPerson);
@@ -46,7 +46,7 @@ public class PersonService {
     }
 
     public void deleteById(Long id) {
-//        findById(id);
+        findById(id);
         repository.deleteById(id);
     }
 }
