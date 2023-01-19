@@ -16,17 +16,20 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
+    @Autowired
+    private PersonMapper mapper;
+
     public List<PersonDTO> findAll() {
-        return PersonMapper.listOfPeopleToPeopleDTO(repository.findAll());
+        return mapper.listOfPeopleToPeopleDTO(repository.findAll());
     }
 
     public PersonDTO findById(Long id) {
-        return PersonMapper.personToPersonDTO(repository.findById(id)
+        return mapper.personToPersonDTO(repository.findById(id)
                 .orElseThrow(() -> new PersonNotFound("This value is invalid, try another one.")));
     }
 
     public void create(PersonDTO personDTO) {
-        repository.save(PersonMapper.toPerson(personDTO));
+        repository.save(mapper.toPerson(personDTO));
     }
 
     public void put(PersonDTO dto, Long id) {
