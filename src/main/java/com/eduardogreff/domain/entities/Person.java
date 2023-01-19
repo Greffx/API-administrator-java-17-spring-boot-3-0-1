@@ -1,4 +1,4 @@
-package com.eduardogreff.entities;
+package com.eduardogreff.domain.entities;
 
 import jakarta.persistence.*;
 

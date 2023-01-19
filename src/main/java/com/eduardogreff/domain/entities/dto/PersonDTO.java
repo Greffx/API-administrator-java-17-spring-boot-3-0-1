@@ -1,4 +1,4 @@
-package com.eduardogreff.entities.dto;
+package com.eduardogreff.domain.entities.dto;
 
 public class PersonDTO {
 

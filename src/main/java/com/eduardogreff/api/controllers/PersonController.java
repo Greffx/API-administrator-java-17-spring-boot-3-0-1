@@ -1,7 +1,7 @@
-package com.eduardogreff.controllers;
+package com.eduardogreff.api.controllers;
 
-import com.eduardogreff.entities.dto.PersonDTO;
-import com.eduardogreff.services.PersonService;
+import com.eduardogreff.domain.entities.dto.PersonDTO;
+import com.eduardogreff.domain.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

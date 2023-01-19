@@ -1,7 +1,7 @@
-package com.eduardogreff.controllers.exception;
+package com.eduardogreff.api.controllers.exception;
 
-import com.eduardogreff.config.StandardErrorConfig;
-import com.eduardogreff.services.exceptions.PersonNotFound;
+import com.eduardogreff.api.config.StandardErrorConfig;
+import com.eduardogreff.domain.services.exceptions.PersonNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

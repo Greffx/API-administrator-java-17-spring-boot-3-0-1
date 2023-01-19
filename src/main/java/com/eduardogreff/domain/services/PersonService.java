@@ -1,10 +1,10 @@
-package com.eduardogreff.services;
+package com.eduardogreff.domain.services;
 
-import com.eduardogreff.entities.Person;
-import com.eduardogreff.entities.dto.PersonDTO;
-import com.eduardogreff.entities.dto.mapper.PersonMapper;
-import com.eduardogreff.repositories.PersonRepository;
-import com.eduardogreff.services.exceptions.PersonNotFound;
+import com.eduardogreff.domain.entities.Person;
+import com.eduardogreff.domain.entities.dto.PersonDTO;
+import com.eduardogreff.api.mapper.PersonMapper;
+import com.eduardogreff.domain.repositories.PersonRepository;
+import com.eduardogreff.domain.services.exceptions.PersonNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

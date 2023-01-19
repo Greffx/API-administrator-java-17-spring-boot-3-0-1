@@ -1,7 +1,7 @@
-package com.eduardogreff.entities.dto.mapper;
+package com.eduardogreff.api.mapper;
 
-import com.eduardogreff.entities.Person;
-import com.eduardogreff.entities.dto.PersonDTO;
+import com.eduardogreff.domain.entities.Person;
+import com.eduardogreff.domain.entities.dto.PersonDTO;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
