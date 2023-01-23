@@ -1,5 +1,6 @@
 package com.eduardogreff.api.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
+@Tag(name = "Greeting Page", description = "First Page, you can write your name in URL path and be greeted")
 public class FirstPageGreeting {
 
     @GetMapping
