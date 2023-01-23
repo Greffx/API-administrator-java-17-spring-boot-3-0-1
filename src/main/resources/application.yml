@@ -1,3 +1,6 @@
+server:
+  port: 1111
+
 spring:
   profiles:
     group:
@@ -6,5 +9,5 @@ spring:
         - "mysqldb"
     active: mysqldb
 
-server:
-  port: 1111
+spring-doc:
+  pathsToMatch: /**/**

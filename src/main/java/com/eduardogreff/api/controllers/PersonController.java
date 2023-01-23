@@ -2,6 +2,7 @@ package com.eduardogreff.api.controllers;
 
 import com.eduardogreff.domain.entities.dto.PersonDTO;
 import com.eduardogreff.domain.services.PersonService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/person")
+@Tag(name = "People", description = "Endpoints to managing people")
 public class PersonController {
 
     @Autowired
