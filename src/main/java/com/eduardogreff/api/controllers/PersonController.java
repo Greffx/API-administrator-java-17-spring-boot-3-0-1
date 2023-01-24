@@ -9,12 +9,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/person")
@@ -25,7 +26,7 @@ public class PersonController {
     private PersonService service;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @Operation(summary = "Finds a list of people",description = "Finds a list of people.", tags = {"People"},
+    @Operation(summary = "Finds a list of people", description = "Finds a list of people.", tags = {"People"},
             responses = {
                     @ApiResponse(description = "Success case", responseCode = "200", content = {
                             @Content(
@@ -35,8 +36,8 @@ public class PersonController {
                     @ApiResponse(description = "Not Found case", responseCode = "404", content = @Content)
             }
     )
-    public ResponseEntity<List<PersonDTO>> findAll() {
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<Page<PersonDTO>> findAll(@PageableDefault(page = 0, size = 2) Pageable pageable) {
+        return ResponseEntity.ok().body(service.findAll(pageable));
     }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -70,7 +71,7 @@ public class PersonController {
 
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @Operation(summary = "Update a person",description = "Upgrades information of a person by passing data in JSON or XML.",
+    @Operation(summary = "Update a person", description = "Upgrades information of a person by passing data in JSON or XML.",
             responses = {
                     @ApiResponse(description = "No content case", responseCode = "204",
                             content = @Content),
@@ -86,7 +87,7 @@ public class PersonController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a person", description = "Deletes a person by your id.",
             responses = {
-                    @ApiResponse(description = "No content case", responseCode = "204",  content = @Content),
+                    @ApiResponse(description = "No content case", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request case", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Not Found case", responseCode = "404", content = @Content)
             }

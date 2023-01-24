@@ -6,6 +6,8 @@ import com.eduardogreff.api.mapper.PersonMapper;
 import com.eduardogreff.domain.repositories.PersonRepository;
 import com.eduardogreff.domain.services.exceptions.PersonNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class PersonService {
     @Autowired
     private PersonMapper mapper;
 
-    public List<PersonDTO> findAll() {
-        return mapper.listOfPeopleToPeopleDTO(repository.findAll());
+    public Page<PersonDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(person -> mapper.personToPersonDTO(person));
     }
 
     public PersonDTO findById(Long id) {
