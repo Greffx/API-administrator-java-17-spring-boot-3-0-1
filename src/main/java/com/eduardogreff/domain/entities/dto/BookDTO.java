@@ -1,22 +1,36 @@
 package com.eduardogreff.domain.entities.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 public class BookDTO {
 
+    @JsonProperty("Id")
     private Long id;
-    private String title;
-    private String author;
-    private Date publishedYear;
 
-    public BookDTO(Long id, String title, String author, Date publishedYear) {
+    @JsonProperty("Title")
+    private String title;
+
+    @JsonProperty("Author")
+    private String author;
+
+    @JsonProperty("Price")
+    private BigDecimal price;
+
+    public BookDTO() {
+    }
+
+    public BookDTO(Long id, String title, String author, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.publishedYear = publishedYear;
+        this.price = price;
     }
 
     public Long getId() {
@@ -43,11 +57,11 @@ public class BookDTO {
         this.author = author;
     }
 
-    public Date getPublishedYear() {
-        return publishedYear;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPublishedYear(Date publishedYear) {
-        this.publishedYear = publishedYear;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

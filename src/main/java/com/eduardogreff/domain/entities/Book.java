@@ -2,7 +2,7 @@ package com.eduardogreff.domain.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -14,16 +14,16 @@ public class Book {
     private Long id;
     private String title;
     private String author;
-    private Date publishedYear;
+    private BigDecimal price;
 
     public Book() {
     }
 
-    public Book(Long id, String title, String author, Date publishedYear) {
+    public Book(Long id, String title, String author, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.publishedYear = publishedYear;
+        this.price = price;
     }
 
     public Long getId() {
@@ -50,12 +50,12 @@ public class Book {
         this.author = author;
     }
 
-    public Date getPublishedYear() {
-        return publishedYear;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPublishedYear(Date publishedYear) {
-        this.publishedYear = publishedYear;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override
