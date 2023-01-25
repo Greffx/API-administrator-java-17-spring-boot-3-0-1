@@ -54,4 +54,8 @@ public class PersonService {
         findById(id);
         repository.deleteById(id);
     }
+
+    public Page<PersonDTO> findByName(Pageable pageable, String name) {
+       return repository.findByName(pageable, name).map(person -> mapper.personToPersonDTO(person));
+    }
 }

@@ -53,6 +53,21 @@ public class PersonController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
+    @GetMapping(value = "/findPeopleByName/{name}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @Operation(summary = "Finds a list of people", description = "Finds a list of people by searching a name.", tags = {"People"},
+            responses = {
+                    @ApiResponse(description = "Success case", responseCode = "200", content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = PersonDTO.class)))
+                    }),
+                    @ApiResponse(description = "Not Found case", responseCode = "404", content = @Content)
+            }
+    )
+    public ResponseEntity<Page<PersonDTO>> findByName(@PathVariable(value = "name") String name, @PageableDefault(page = 0, size = 2) Pageable pageable) {
+        return ResponseEntity.ok().body(service.findByName(pageable, name));
+    }
+
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Operation(summary = "creates a person", description = "Creates a new person by passing data in JSON or XML.",
