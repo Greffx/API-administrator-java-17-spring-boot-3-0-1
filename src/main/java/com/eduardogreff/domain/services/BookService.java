@@ -6,6 +6,8 @@ import com.eduardogreff.domain.entities.dto.BookDTO;
 import com.eduardogreff.domain.repositories.BookRepository;
 import com.eduardogreff.domain.services.exceptions.BookNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class BookService {
     @Autowired
     private BookMapper mapper;
 
-    public List<BookDTO> findAll() {
-        return mapper.fromListOfBooks(repository.findAll());
+    public Page<BookDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(book -> mapper.fromBook(book));
     }
 
     public BookDTO findById(Long id) {
