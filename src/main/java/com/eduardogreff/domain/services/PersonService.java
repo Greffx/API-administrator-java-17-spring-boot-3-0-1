@@ -6,8 +6,6 @@ import com.eduardogreff.api.mapper.PersonMapper;
 import com.eduardogreff.domain.repositories.PersonRepository;
 import com.eduardogreff.domain.services.exceptions.PersonNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,17 +19,17 @@ public class PersonService {
     @Autowired
     private PersonMapper mapper;
 
-    public Page<PersonDTO> findAll(Pageable pageable) {
-        return repository.findAll(pageable).map(person -> mapper.personToPersonDTO(person));
+    public List<Person> findAll() {
+        return (repository.findAll());
     }
 
-    public PersonDTO findById(Long id) {
-        return mapper.personToPersonDTO(repository.findById(id)
+    public Person findById(Long id) {
+        return (repository.findById(id)
                 .orElseThrow(() -> new PersonNotFound("This value is invalid, try another one.")));
     }
 
-    public void create(PersonDTO personDTO) {
-        repository.save(mapper.toPerson(personDTO));
+    public Person create(PersonDTO personDTO) {
+        return repository.save(mapper.toPerson(personDTO));
     }
 
     public void put(PersonDTO dto, Long id) {
@@ -53,9 +51,5 @@ public class PersonService {
     public void deleteById(Long id) {
         findById(id);
         repository.deleteById(id);
-    }
-
-    public Page<PersonDTO> findByName(Pageable pageable, String name) {
-       return repository.findByName(pageable, name).map(person -> mapper.personToPersonDTO(person));
     }
 }
