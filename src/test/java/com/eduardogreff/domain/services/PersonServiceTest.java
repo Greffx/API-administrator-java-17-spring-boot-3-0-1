@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -83,7 +83,16 @@ class PersonServiceTest {
 
 
     @Test
-    void create() {
+    void whenCreateThenShouldReturnSuccess() {
+        when(repository.save(any())).thenReturn(person);
+        Person result = service.create(personDTO);
+
+        assertNotNull(result);
+        assertEquals(Person.class, result.getClass());
+        assertEquals(1L, result.getId());
+        assertEquals("Eduardo", result.getFirstName());
+        assertEquals("Greff", result.getLastName());
+        assertEquals("male", result.getGender());
     }
 
     @Test
