@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 @Configuration
-@Profile("mysqldb")
+@Profile("testH2")
 public class ObjectsForDB {
 
     @Autowired

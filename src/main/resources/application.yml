@@ -7,9 +7,9 @@ spring:
       studyPurposes:
         - "testH2"
         - "mysqldb"
-    active: mysqldb
+    active: testH2
 
 spring-doc:
   pathsToMatch: /**/**
-  swagger-ui:
-    use-root-path: true
+#  swagger-ui:
+#    use-root-path: true
