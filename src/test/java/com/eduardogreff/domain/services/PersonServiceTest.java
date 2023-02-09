@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,7 +45,16 @@ class PersonServiceTest {
     }
 
     @Test
-    void findAll() {
+    void whenFindAllThenShouldReturnAListOfPeople() {
+        when(repository.findAll()).thenReturn(List.of(person));
+        List<Person> result = service.findAll();
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals(Person.class, result.get(0).getClass());
+        assertEquals(1L, result.get(0).getId());
+        assertEquals("Eduardo", result.get(0).getFirstName());
+        assertEquals("Greff", result.get(0).getLastName());
     }
 
     @Test
