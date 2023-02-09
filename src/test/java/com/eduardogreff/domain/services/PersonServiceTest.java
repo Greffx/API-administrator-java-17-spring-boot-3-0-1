@@ -4,7 +4,7 @@ import com.eduardogreff.api.mapper.PersonMapper;
 import com.eduardogreff.domain.entities.Person;
 import com.eduardogreff.domain.entities.dto.PersonDTO;
 import com.eduardogreff.domain.repositories.PersonRepository;
-import org.junit.jupiter.api.Assertions;
+import com.eduardogreff.domain.services.exceptions.PersonNotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,8 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class PersonServiceTest {
@@ -48,7 +49,7 @@ class PersonServiceTest {
 
     @Test
     void whenFindByIdThenShouldReturnAPersonInstance() {
-        Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(optionalPerson);
+        when(repository.findById(Mockito.anyLong())).thenReturn(optionalPerson);
         Person result = service.findById(1L);
 
         assertNotNull(result);
@@ -58,6 +59,18 @@ class PersonServiceTest {
         assertEquals("Greff", result.getLastName());
         assertEquals("Porto Alegre", result.getCity());
     }
+
+    @Test
+    void whenFindByIdThenShouldReturnPersonNotFoundException() {
+        when(repository.findById(anyLong())).thenThrow(new PersonNotFound("This value is invalid, try another one."));
+        try {
+            service.findById(2L);
+        } catch (Exception e) {
+            assertEquals(PersonNotFound.class, e.getClass());
+            assertEquals("This value is invalid, try another one.", e.getMessage());
+        }
+    }
+
 
     @Test
     void create() {
