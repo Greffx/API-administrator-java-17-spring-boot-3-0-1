@@ -78,7 +78,15 @@ class PersonControllerTest {
     }
 
     @Test
-    void create() {
+    void whenCreateThenShouldReturnCreated() {
+        when(service.create(any())).thenReturn(person);
+
+        ResponseEntity<PersonDTO> result = controller.create(personDTO);
+
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+        assertNotNull(result.getHeaders().get("Location"));
+        assertEquals(ResponseEntity.class, result.getClass());
+
     }
 
     @Test
