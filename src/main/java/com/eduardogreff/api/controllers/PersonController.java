@@ -44,8 +44,7 @@ public class PersonController {
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<PersonDTO> put(@RequestBody PersonDTO dto, @PathVariable Long id) {
-        service.put(dto, id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(mapper.personToPersonDTO(service.put(dto, id)));
     }
 
     @DeleteMapping("/{id}")

@@ -8,16 +8,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class PersonDTO {
 
     private Long id;
-    @JsonProperty("first_name")
+    @JsonProperty("First Name")
     private String firstName;
 
-    @JsonProperty("last_name")
+    @JsonProperty("Last Name")
     private String lastName;
+
+    @JsonProperty("City")
     private String city;
+
+    @JsonProperty("Gender")
     private String gender;
 
     @JsonIgnore
+    @JsonProperty("Email")
     private String email;
+
+    @JsonProperty("Age")
     private Integer age;
 
     public PersonDTO() {
