@@ -110,7 +110,7 @@ class PersonControllerTest {
     void whenDeleteThenReturnSuccess() {
         doNothing().when(service).deleteById(anyLong());
 
-        service.deleteById(1L);
+        controller.delete(1L);
 
         verify(service, times(1)).deleteById(1L);
     }
