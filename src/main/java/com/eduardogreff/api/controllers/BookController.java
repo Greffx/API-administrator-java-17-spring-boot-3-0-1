@@ -1,5 +1,6 @@
 package com.eduardogreff.api.controllers;
 
+import com.eduardogreff.api.mapper.BookMapper;
 import com.eduardogreff.domain.entities.dto.BookDTO;
 import com.eduardogreff.domain.services.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +28,9 @@ public class BookController {
     @Autowired
     private BookService service;
 
+    @Autowired
+    private BookMapper mapper;
+
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Operation(summary = "Find a list of books", description = "Can search all books by URL path", responses = {
             @ApiResponse(description = "Success case", responseCode = "200", content = {
@@ -39,7 +43,7 @@ public class BookController {
             @ApiResponse(description = "Not Found case", responseCode = "404", content = @Content)
     })
     public ResponseEntity<Page<BookDTO>> findAll(@PageableDefault(page = 0, size = 2) Pageable pageable) {
-        return ResponseEntity.ok().body(service.findAll(pageable));
+        return ResponseEntity.ok().body(service.findAll(pageable).map(each -> mapper.fromBook(each)));
     }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -55,7 +59,7 @@ public class BookController {
             @ApiResponse(description = "Not Found case", responseCode = "400", content = @Content)
     })
     public ResponseEntity<BookDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(service.findById(id));
+        return ResponseEntity.ok().body(mapper.fromBook(service.findById(id)));
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -64,9 +68,8 @@ public class BookController {
             @ApiResponse(description = "Not Found case", responseCode = "404", content = @Content),
             @ApiResponse(description = "Not Found case", responseCode = "400", content = @Content)
     })
-    public ResponseEntity<Void> create(@RequestBody BookDTO bookDTO) {
-        service.create(bookDTO);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(bookDTO.getId()).toUri()).build();
+    public ResponseEntity<BookDTO> create(@RequestBody BookDTO bookDTO) {
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(bookDTO.getId()).toUri()).body(mapper.fromBook(service.create(bookDTO)));
     }
 
     @PutMapping("/{id}")

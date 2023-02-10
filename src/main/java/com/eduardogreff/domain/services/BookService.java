@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class BookService {
 
@@ -21,31 +22,25 @@ public class BookService {
     @Autowired
     private BookMapper mapper;
 
-    public Page<BookDTO> findAll(Pageable pageable) {
-        return repository.findAll(pageable).map(book -> mapper.fromBook(book));
+    public Page<Book> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    public BookDTO findById(Long id) {
-       return mapper.fromBook(repository.findById(id).orElseThrow(() -> new BookNotFound("This book doesn't exist, try another one.")));
+    public Book findById(Long id) {
+       return repository.findById(id).orElseThrow(() -> new BookNotFound("This book doesn't exist, try another one."));
     }
 
-    public void create(BookDTO bookDTO) {
-        repository.save(mapper.fromBookDTO(bookDTO));
+    public Book create(BookDTO bookDTO) {
+        return repository.save(mapper.fromBookDTO(bookDTO));
     }
 
     public void update(BookDTO bookDTO, Long id) {
-        findById(id);
-        methodToUpdateABook(repository.getReferenceById(id), bookDTO);
-    }
-
-    private void methodToUpdateABook(Book monitoredBook, BookDTO bookDTO) {
-        monitoredBook.setTitle(bookDTO.getTitle());
-        monitoredBook.setAuthor(bookDTO.getAuthor());
+        bookDTO.setId(id);
+        repository.save(mapper.fromBookDTO(bookDTO));
     }
 
     public void delete(Long id) {
         findById(id);
         repository.deleteById(id);
     }
-
 }
