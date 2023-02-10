@@ -7,10 +7,12 @@ import com.eduardogreff.domain.repositories.PersonRepository;
 import com.eduardogreff.domain.services.exceptions.PersonNotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -20,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
 
     @InjectMocks
@@ -99,18 +101,6 @@ class PersonServiceTest {
         assertEquals("male", result.getGender());
     }
 
-//    @Test
-//    void whenUpdatedShouldReturnSuccess() {
-//        when(repository.save(any())).thenReturn(optionalPerson);
-//        when(repository.findById(anyLong())).thenReturn(optionalPerson);
-//
-//        personDTO = objToPutMethod();
-//
-//        Person result = service.put(personDTO, 1L);
-//
-//        assertNotNull(result);
-//    }
-
     @Test
     void deleteByIdWithSuccess() {
         when(repository.findById(anyLong())).thenReturn(optionalPerson);
@@ -121,13 +111,21 @@ class PersonServiceTest {
         verify(repository, times(1)).deleteById(anyLong());
     }
 
-    private void createPeople() {
-        person = new Person(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23);
-        personDTO = mapper.personToPersonDTO(new Person(2L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23));
-        optionalPerson = Optional.of(person);
+    @Test
+    void deleteByIdWithPersonNotFoundException() {
+        when(repository.findById(anyLong())).thenThrow(new PersonNotFound("This value is invalid, try another one."));
+
+        try {
+            service.deleteById(1L);
+        } catch (PersonNotFound e) {
+            assertEquals(PersonNotFound.class, e.getClass());
+            assertEquals("This value is invalid, try another one.", e.getMessage());
+        }
     }
 
-    private PersonDTO objToPutMethod() {
-        return personDTO = mapper.personToPersonDTO(new Person(2L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23));
+    private void createPeople() {
+        person = new Person(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23);
+        personDTO = mapper.personToPersonDTO(person);
+        optionalPerson = Optional.of(person);
     }
 }
