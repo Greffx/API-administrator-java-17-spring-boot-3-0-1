@@ -23,5 +23,4 @@ public class PersonMapper {
     public List<PersonDTO> listOfPeopleToPeopleDTO(List<Person> people) {
         return people.stream().map(this::personToPersonDTO).toList();
     }
-
 }
