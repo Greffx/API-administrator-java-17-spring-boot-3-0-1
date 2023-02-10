@@ -10,10 +10,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class PersonControllerTest {
@@ -28,11 +32,12 @@ class PersonControllerTest {
     private PersonService service;
 
     private PersonDTO personDTO;
+    private Person person;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        createPersonDTO();
+        createPeople();
     }
 
     @Test
@@ -40,7 +45,19 @@ class PersonControllerTest {
     }
 
     @Test
-    void findById() {
+    void whenFindByIdThenShouldReturnSuccess() {
+        when(service.findById(anyLong())).thenReturn(person);
+        when(mapper.personToPersonDTO(person)).thenReturn(personDTO);
+
+        ResponseEntity<PersonDTO> result = controller.findById(1L);
+
+        assertNotNull(result);
+        assertNotNull(result.getBody());
+        assertEquals(ResponseEntity.class, result.getClass());
+        assertEquals(PersonDTO.class, result.getBody().getClass());
+        assertEquals(1L, result.getBody().getId());
+        assertEquals("Eduardo", result.getBody().getFirstName());
+        assertEquals("Greff", result.getBody().getLastName());
     }
 
     @Test
@@ -55,7 +72,8 @@ class PersonControllerTest {
     void delete() {
     }
 
-    private void createPersonDTO() {
-        personDTO = mapper.personToPersonDTO(new Person(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23));
+    private void createPeople() {
+        person = new Person(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23);
+        personDTO = new PersonDTO(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23);
     }
 }
