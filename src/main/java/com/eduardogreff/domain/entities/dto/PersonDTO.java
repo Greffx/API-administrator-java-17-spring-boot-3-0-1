@@ -30,6 +30,16 @@ public class PersonDTO {
     public PersonDTO() {
     }
 
+    public PersonDTO(Long id, String firstName, String lastName, String city, String gender, String email, Integer age) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.gender = gender;
+        this.email = email;
+        this.age = age;
+    }
+
     public Long getId() {
         return id;
     }
