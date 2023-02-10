@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class PersonServiceTest {
@@ -47,6 +47,7 @@ class PersonServiceTest {
     @Test
     void whenFindAllThenShouldReturnAListOfPeople() {
         when(repository.findAll()).thenReturn(List.of(person));
+
         List<Person> result = service.findAll();
 
         assertNotNull(result);
@@ -60,6 +61,7 @@ class PersonServiceTest {
     @Test
     void whenFindByIdThenShouldReturnAPersonInstance() {
         when(repository.findById(Mockito.anyLong())).thenReturn(optionalPerson);
+
         Person result = service.findById(1L);
 
         assertNotNull(result);
@@ -73,6 +75,7 @@ class PersonServiceTest {
     @Test
     void whenFindByIdThenShouldReturnPersonNotFoundException() {
         when(repository.findById(anyLong())).thenThrow(new PersonNotFound("This value is invalid, try another one."));
+
         try {
             service.findById(2L);
         } catch (Exception e) {
@@ -85,6 +88,7 @@ class PersonServiceTest {
     @Test
     void whenCreateThenShouldReturnSuccess() {
         when(repository.save(any())).thenReturn(person);
+
         Person result = service.create(personDTO);
 
         assertNotNull(result);
@@ -95,18 +99,35 @@ class PersonServiceTest {
         assertEquals("male", result.getGender());
     }
 
-    @Test
-    void put() {
-    }
+//    @Test
+//    void whenUpdatedShouldReturnSuccess() {
+//        when(repository.save(any())).thenReturn(optionalPerson);
+//        when(repository.findById(anyLong())).thenReturn(optionalPerson);
+//
+//        personDTO = objToPutMethod();
+//
+//        Person result = service.put(personDTO, 1L);
+//
+//        assertNotNull(result);
+//    }
 
     @Test
-    void deleteById() {
+    void deleteByIdWithSuccess() {
+        when(repository.findById(anyLong())).thenReturn(optionalPerson);
+        doNothing().when(repository).deleteById(anyLong());
+
+        service.deleteById(1L);
+
+        verify(repository, times(1)).deleteById(anyLong());
     }
 
     private void createPeople() {
         person = new Person(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23);
-        personDTO = mapper.personToPersonDTO(new Person(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23));
-        optionalPerson = Optional.of(new Person(1L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23));
+        personDTO = mapper.personToPersonDTO(new Person(2L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23));
+        optionalPerson = Optional.of(person);
+    }
 
+    private PersonDTO objToPutMethod() {
+        return personDTO = mapper.personToPersonDTO(new Person(2L, "Eduardo", "Greff", "Porto Alegre", "male", "eduardo1@gmail.com", 23));
     }
 }
