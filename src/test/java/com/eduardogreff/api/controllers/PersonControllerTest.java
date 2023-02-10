@@ -10,9 +10,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Optional;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -41,7 +42,22 @@ class PersonControllerTest {
     }
 
     @Test
-    void findAll() {
+    void whenFindAllThenShouldReturnAListOfPersonDTO() {
+        when(service.findAll()).thenReturn(List.of(person));
+        when(mapper.listOfPeopleToPeopleDTO(any())).thenReturn(List.of(personDTO));
+
+        ResponseEntity<List<PersonDTO>> result = controller.findAll();
+
+        assertNotNull(result);
+        assertNotNull(result.getBody());
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals(ResponseEntity.class, result.getClass());
+        assertEquals(PersonDTO.class, result.getBody().get(0).getClass());
+        assertEquals(1, result.getBody().size());
+        assertEquals("Eduardo", result.getBody().get(0).getFirstName());
+        assertEquals("Greff", result.getBody().get(0).getLastName());
+        assertEquals("male", result.getBody().get(0).getGender());
+        assertEquals(1L, result.getBody().get(0).getId());
     }
 
     @Test
@@ -53,6 +69,7 @@ class PersonControllerTest {
 
         assertNotNull(result);
         assertNotNull(result.getBody());
+        assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(ResponseEntity.class, result.getClass());
         assertEquals(PersonDTO.class, result.getBody().getClass());
         assertEquals(1L, result.getBody().getId());
