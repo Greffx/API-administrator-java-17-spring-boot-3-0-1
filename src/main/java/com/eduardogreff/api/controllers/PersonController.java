@@ -38,7 +38,7 @@ public class PersonController {
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO) {
         service.create(personDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(personDTO.getId()).toUri()).body(personDTO);
+                .path("/{id}").buildAndExpand(personDTO.getId()).toUri()).build();
     }
 
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
