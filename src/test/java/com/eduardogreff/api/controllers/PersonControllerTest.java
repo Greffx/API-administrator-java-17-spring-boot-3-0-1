@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class PersonControllerTest {
@@ -90,11 +90,29 @@ class PersonControllerTest {
     }
 
     @Test
-    void put() {
+    void whenUpdateThenShouldReturnSuccess() {
+        when(service.put(any(), anyLong())).thenReturn(person);
+        when(mapper.personToPersonDTO(any())).thenReturn(personDTO);
+
+        ResponseEntity<PersonDTO> result = controller.put(personDTO, 1L);
+
+        assertNotNull(result);
+        assertNotNull(result.getBody());
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals(ResponseEntity.class, result.getClass());
+        assertEquals(PersonDTO.class, result.getBody().getClass());
+        assertEquals("Eduardo", result.getBody().getFirstName());
+        assertEquals("Greff", result.getBody().getLastName());
+        assertEquals("male", result.getBody().getGender());
     }
 
     @Test
-    void delete() {
+    void whenDeleteThenReturnSuccess() {
+        doNothing().when(service).deleteById(anyLong());
+
+        service.deleteById(1L);
+
+        verify(service, times(1)).deleteById(1L);
     }
 
     private void createPeople() {
