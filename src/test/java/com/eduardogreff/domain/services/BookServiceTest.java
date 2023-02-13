@@ -103,7 +103,17 @@ class BookServiceTest {
     }
 
     @Test
-    void update() {
+    void whenUpdateThenShouldReturnEntityWithNewContent() {
+        when(repository.save(any())).thenReturn(book);
+
+        Book result = service.update(bookDTO, 1L);
+
+        assertNotNull(result);
+        assertEquals(Book.class, result.getClass());
+        assertEquals("Jk", result.getAuthor());
+        assertEquals(new BigDecimal("23.56"), result.getPrice());
+        assertEquals(1L, result.getId());
+
     }
 
     @Test
