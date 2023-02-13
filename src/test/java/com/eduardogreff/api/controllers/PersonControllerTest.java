@@ -91,10 +91,10 @@ class PersonControllerTest {
 
     @Test
     void whenUpdateThenShouldReturnSuccess() {
-        when(service.put(any(), anyLong())).thenReturn(person);
+        when(service.update(anyLong(), any())).thenReturn(person);
         when(mapper.personToPersonDTO(any())).thenReturn(personDTO);
 
-        ResponseEntity<PersonDTO> result = controller.put(personDTO, 1L);
+        ResponseEntity<PersonDTO> result = controller.put(1L, personDTO);
 
         assertNotNull(result);
         assertNotNull(result.getBody());

@@ -1,6 +1,7 @@
 package com.eduardogreff.domain.services;
 
 import com.eduardogreff.api.mapper.PersonMapper;
+import com.eduardogreff.domain.entities.Book;
 import com.eduardogreff.domain.entities.Person;
 import com.eduardogreff.domain.entities.dto.PersonDTO;
 import com.eduardogreff.domain.repositories.PersonRepository;
