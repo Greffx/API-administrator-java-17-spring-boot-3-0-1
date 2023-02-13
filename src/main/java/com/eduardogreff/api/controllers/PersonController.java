@@ -4,6 +4,7 @@ import com.eduardogreff.api.mapper.PersonMapper;
 import com.eduardogreff.domain.entities.dto.PersonDTO;
 import com.eduardogreff.domain.services.PersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +44,8 @@ public class PersonController {
 
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<PersonDTO> put(@RequestBody PersonDTO dto, @PathVariable Long id) {
-        return ResponseEntity.ok().body(mapper.personToPersonDTO(service.put(dto, id)));
+    public ResponseEntity<PersonDTO> put(@PathVariable Long id, @RequestBody @Valid PersonDTO dto) {
+        return ResponseEntity.ok().body(mapper.personToPersonDTO(service.update(id, dto)));
     }
 
     @DeleteMapping("/{id}")

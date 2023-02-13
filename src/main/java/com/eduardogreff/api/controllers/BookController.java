@@ -78,7 +78,7 @@ public class BookController {
             @ApiResponse(description = "Not Found case", responseCode = "404", content = @Content),
             @ApiResponse(description = "Not Found case", responseCode = "400", content = @Content)
     })
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> update(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
         service.update(bookDTO, id);
         return ResponseEntity.noContent().build();
     }
