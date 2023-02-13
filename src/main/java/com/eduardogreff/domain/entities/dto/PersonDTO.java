@@ -1,30 +1,28 @@
 package com.eduardogreff.domain.entities.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @JsonPropertyOrder({"id", "firstName", "lastName", "age", "gender", "city", "email"})
 public class PersonDTO {
 
     private Long id;
-    @JsonProperty("First Name")
+    @NotBlank
     private String firstName;
 
-    @JsonProperty("Last Name")
+    @NotBlank
     private String lastName;
 
-    @JsonProperty("City")
+    @NotBlank
     private String city;
 
-    @JsonProperty("Gender")
+    @NotBlank
     private String gender;
 
-    @JsonIgnore
-    @JsonProperty("Email")
+    @Email
     private String email;
 
-    @JsonProperty("Age")
     private Integer age;
 
     public PersonDTO() {
