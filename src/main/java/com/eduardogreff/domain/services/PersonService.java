@@ -32,9 +32,9 @@ public class PersonService {
         return repository.save(mapper.toPerson(personDTO));
     }
 
-    public Person put(PersonDTO dto, Long id) {
-        dto.setId(id);
-        return repository.save(mapper.toPerson(dto));
+    public Person update(Long id, PersonDTO personDTO) {
+        personDTO.setId(id);
+        return repository.save(mapper.toPerson(personDTO));
     }
 
     public void deleteById(Long id) {

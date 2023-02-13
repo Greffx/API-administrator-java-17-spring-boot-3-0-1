@@ -10,9 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-
 @Service
 public class BookService {
 
@@ -34,9 +31,9 @@ public class BookService {
         return repository.save(mapper.fromBookDTO(bookDTO));
     }
 
-    public void update(BookDTO bookDTO, Long id) {
+    public Book update(BookDTO bookDTO, Long id) {
         bookDTO.setId(id);
-        repository.save(mapper.fromBookDTO(bookDTO));
+        return repository.save(mapper.fromBookDTO(bookDTO));
     }
 
     public void delete(Long id) {
